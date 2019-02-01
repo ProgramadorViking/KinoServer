@@ -14,3 +14,11 @@
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+$router->post('/auth/login','AuthController@postLogin');
+$router->group(['middleware'=>'auth:api'],function($router){
+    $router->get('/test',function(){
+        return response()->json([
+            'message'=>'Hello World!',
+        ]);
+    });
+});
