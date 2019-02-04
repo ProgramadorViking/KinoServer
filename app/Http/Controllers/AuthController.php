@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTAuth;
+use App\User;
 
 class AuthController extends Controller
 {
@@ -16,6 +17,13 @@ class AuthController extends Controller
     public function __construct(JWTAuth $jwt)
     {
         $this->jwt = $jwt;
+    }
+
+    public function register(Request $request) {
+        $user = new User($request->all());
+        $user->save();
+        //TODO: estandaritzar la resposta, també donar una resposta en cas d'error
+        return response()->json("Correct");
     }
 
     public function postLogin(Request $request)

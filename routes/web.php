@@ -15,6 +15,8 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+//Registro
+$router->post('/auth/register','AuthController@register');
 //Login --> crea el token
 $router->post('/auth/login','AuthController@postLogin');
 
@@ -22,17 +24,22 @@ $router->post('/auth/login','AuthController@postLogin');
 $router->group(['middleware'=>'auth:api'],function($router){
     //Grupo usuarios + editors + admin
     $router->group(['middleware'=>'role:user'],function($router){
+        //Usuarios
+        $router->get('user/{id}', 'UsersController@get');
+        //Peliculas
         $router->get('films', 'FilmsController@all');
         $router->get('films/{id}', 'FilmsController@get');
     });
     //Grupo editores + admin
     $router->group(['middleware'=>'role:editor'],function($router){
+        //Peliculas
         $router->post('films', 'FilmsController@add');
         $router->put('films/{id}', 'FilmsController@put');
     });
     //Grupo administradores
     $router->group(['middleware'=>'role:admin'],function($router){
-        
+        $router->get('user', 'UsersController@all');
+        $router->put('user/{id}', 'UsersController@put');
     });
     $router->get('/test',function(){
         return response()->json([
@@ -42,4 +49,6 @@ $router->group(['middleware'=>'auth:api'],function($router){
 });
 
 
-$router->delete('films/{id}', 'FilmsController@remove');
+//$router->delete('films/{id}', 'FilmsController@remove');
+//$router->delete('user/{id}', 'UsersController@remove');
+
