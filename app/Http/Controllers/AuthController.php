@@ -21,9 +21,10 @@ class AuthController extends Controller
 
     public function register(Request $request) {
         $user = new User($request->all());
+        $user->password=app('hash')->make($request->password);
         $user->save();
         //TODO: estandaritzar la resposta, també donar una resposta en cas d'error
-        return response()->json("Correct");
+        return response()->json($user);
     }
 
     public function postLogin(Request $request)
@@ -37,7 +38,7 @@ class AuthController extends Controller
         try {
 
             if (! $token = $this->jwt->attempt($request->only('email', 'password'))) {
-                return response()->json(['invalid_credentials'], 401);
+                return response()->json('invalid', 401);
             }
 
         } catch (\Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
