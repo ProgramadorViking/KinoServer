@@ -13,7 +13,7 @@ class FilmsTable extends Migration
      */
     public function up()
     {
-        Schema::create('Films', function(Blueprint $table){
+        Schema::create('films', function(Blueprint $table){
             $table->increments('id');
             $table->string('name',50);
             $table->smallInteger('category');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\JWTAuth;
 use App\User;
+use DB;
 
 class AuthController extends Controller
 {
@@ -54,7 +55,11 @@ class AuthController extends Controller
             return response()->json(['token_absent' => $e->getMessage()], 500);
 
         }
-
-        return response()->json(compact('token'));
+        $users = DB::table('users')->select('rol')->where('email',$request->email)->get();
+        $rol=$users[0]->rol;
+        $last_login = date_create();
+        $data = compact("last_login");
+        DB::table('users')->where('email',$request->email)->update($data);
+        return response()->json(compact('token','rol'));
     }
 }
