@@ -41,11 +41,7 @@ $router->group(['middleware'=>'auth:api'],function($router){
         $router->get('user', 'UsersController@all');
         $router->put('user/{id}', 'UsersController@put');
     });
-    $router->get('/test',function(){
-        return response()->json([
-            'message'=>'Hello World!',
-        ]);
-    });
+    
 });
 
 
