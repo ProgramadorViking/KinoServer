@@ -15,7 +15,7 @@ class FilmsTable extends Migration
     {
         Schema::create('films', function(Blueprint $table){
             $table->increments('id');
-            $table->string('name',50);
+            $table->string('name',100);
             $table->smallInteger('category');
             $table->date('premiere');
             $table->text('description');

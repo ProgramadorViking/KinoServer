@@ -32,6 +32,8 @@ class FilmsController extends Controller {
         $film->description=$request->description;
         $film->pegi=$request->pegi;
         $film->duration=$request->duration;
+        $film->image=$request->image;
+        $film->trailer=$request->trailer;
         $film->updated_at=date_create();
         $film->save();
         //TODO: estandaritzar la resposta, també donar una resposta en cas d'error
