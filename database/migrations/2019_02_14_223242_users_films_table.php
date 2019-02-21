@@ -13,13 +13,13 @@ class UsersFilmsTable extends Migration
      */
     public function up()
     {
-        Schema::create('users_films', function(Blueprint $table){
-            $table->integer('user_id');
-            $table->integer('film_id');
-            $table->smallInteger('status');
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('film_id')->references('id')->on('films');
-        });
+        //Schema::create('users_films', function(Blueprint $table){
+        //    $table->integer('user_id');
+        //    $table->integer('film_id');
+        //    $table->smallInteger('status');
+        //    $table->foreign('user_id')->references('id')->on('users');
+        //    $table->foreign('film_id')->references('id')->on('films');
+        //});
     }
 
     /**

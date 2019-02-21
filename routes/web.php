@@ -30,10 +30,10 @@ $router->group(['middleware'=>'auth:api'],function($router){
         $router->get('films', 'FilmsController@all');
         $router->get('films/{id}', 'FilmsController@get');
         //Listas
-        $router->get('list', 'UsersFilmsController@all');
         $router->get('list/user/{id}', 'UsersFilmsController@getUser');
         $router->get('list/my/{id}', 'UsersFilmsController@getStat');
-        $router->post('list/add', 'UsersFilmsController@addStat');
+        $router->post('list', 'UsersFilmsController@addStat');
+
     });
     //Grupo editores + admin
     $router->group(['middleware'=>'role:editor'],function($router){
@@ -46,7 +46,9 @@ $router->group(['middleware'=>'auth:api'],function($router){
         $router->get('user', 'UsersController@all');
         $router->put('user/{id}', 'UsersController@put');
         //Listas
+        $router->get('list', 'UsersFilmsController@all');
         $router->get('list/film/{id}', 'UsersFilmsController@getFilm');
+        
     });
     
 });
@@ -54,10 +56,4 @@ $router->group(['middleware'=>'auth:api'],function($router){
 
 //$router->delete('films/{id}', 'FilmsController@remove');
 //$router->delete('user/{id}', 'UsersController@remove');
-
-
-/**
- * Routes for resource users-films
- */
-
 

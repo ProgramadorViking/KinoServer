@@ -25,13 +25,28 @@ class UsersFilmsController extends Controller {
     }
 
     public function addStat(Request $request) {
-        $item = UsersFilms::firstOrNew(
-            ['user_id'=>$request->user_id,
-            'film_id'=>$request->film_id],
-            ['status'=>$request->status]
-        );
-        $item->save();
-        //return response()->json("Correct");
+        $user_id = $request->user()->id;
+        $film_id = $request->film_id;
+        $status = $request->status;
+        //$item = UsersFilms::firstOrNew(
+        //    ['user_id'=>$id,
+        //    'film_id'=>$request->film_id],
+        //    ['status'=>$request->status]
+        //);
+        //$item->status = $request->status;
+        //$item->save();
+        $item = UsersFilms::where('user_id', $user_id)->where('film_id', $film_id)->first();
+        if ($item === null) {
+            $item = New UsersFilms();
+            $item->user_id=$user_id;
+            $item->film_id=$film_id;
+            $item->status=$status;
+            $item->save();
+        } else {
+            $update['status']=$status;
+            UsersFilms::where('user_id',$user_id)->where('film_id',$film_id)->update($update);
+        }
+        return response()->json($item);
     }
 
 }
