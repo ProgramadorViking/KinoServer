@@ -21,7 +21,7 @@ class UsersFilmsController extends Controller {
 
     public function getStat(Request $request, $id) {
         $user_id = $request->user()->id;
-        return UsersFilms::where('user_id',$id)->where('film_id',$id)->get();
+        return UsersFilms::where('user_id',$user_id)->where('film_id',$id)->get();
     }
 
     public function addStat(Request $request) {

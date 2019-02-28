@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -10,16 +9,13 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
-
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
-
 //Registro
 $router->post('/auth/register','AuthController@register');
 //Login --> crea el token
 $router->post('/auth/login','AuthController@postLogin');
-
 //Rutas con token
 $router->group(['middleware'=>'auth:api'],function($router){
     //Grupo usuarios + editors + admin
@@ -33,7 +29,6 @@ $router->group(['middleware'=>'auth:api'],function($router){
         $router->get('list/user/{id}', 'UsersFilmsController@getUser');
         $router->get('list/my/{id}', 'UsersFilmsController@getStat');
         $router->post('list', 'UsersFilmsController@addStat');
-
     });
     //Grupo editores + admin
     $router->group(['middleware'=>'role:editor'],function($router){
@@ -52,8 +47,5 @@ $router->group(['middleware'=>'auth:api'],function($router){
     });
     
 });
-
-
 //$router->delete('films/{id}', 'FilmsController@remove');
 //$router->delete('user/{id}', 'UsersController@remove');
-
