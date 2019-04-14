@@ -39,4 +39,8 @@ class FilmsController extends Controller {
         //TODO: estandaritzar la resposta, també donar una resposta en cas d'error
         return response()->json("Correct");
     }
+
+    public function last() {
+        return Films::orderBy('created_at','desc')->limit(6)->get();
+    }
 }
