@@ -1,4 +1,5 @@
 <?php
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -9,17 +10,16 @@
 | and give it the Closure to call when that URI is requested.
 |
 */
+
 $router->get('/', function () use ($router) {
     return $router->app->version();
 });
+
 //Registro
 $router->post('/auth/register','AuthController@register');
 //Login --> crea el token
 $router->post('/auth/login','AuthController@postLogin');
-//Rutas con token
-$router->group(['middleware'=>'auth:api'],function($router){
-    //Grupo usuarios + editors + admin
-    $router->group(['middleware'=>'role:user'],function($router){
+
         //Usuarios
         $router->get('user/{id}', 'UsersController@get');
         //Peliculas
@@ -29,23 +29,23 @@ $router->group(['middleware'=>'auth:api'],function($router){
         $router->get('list/user/{id}', 'UsersFilmsController@getUser');
         $router->get('list/my/{id}', 'UsersFilmsController@getStat');
         $router->post('list', 'UsersFilmsController@addStat');
-    });
-    //Grupo editores + admin
-    $router->group(['middleware'=>'role:editor'],function($router){
+        //Directores
+        $router->get('directors', 'DirectorsController@all');
+        $router->get('directors/{id}', 'DirectorsController@get');
         //Peliculas
         $router->post('films', 'FilmsController@add');
         $router->put('films/{id}', 'FilmsController@put');
-    });
-    //Grupo administradores
-    $router->group(['middleware'=>'role:admin'],function($router){
+        //Directores
+        $router->post('directors', 'DirectorsController@add');
+        $router->put('directors/{id}', 'DirectorsController@put');
         $router->get('user', 'UsersController@all');
         $router->put('user/{id}', 'UsersController@put');
         //Listas
         $router->get('list', 'UsersFilmsController@all');
         $router->get('list/film/{id}', 'UsersFilmsController@getFilm');
-        
-    });
-    
-});
+
+
+
 //$router->delete('films/{id}', 'FilmsController@remove');
 //$router->delete('user/{id}', 'UsersController@remove');
+//$router->delete('directors/{id}', 'DirectorsController@remove');

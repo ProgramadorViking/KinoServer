@@ -18,7 +18,7 @@ class DirectorsTable extends Migration
             $table->string('name',100)->unique();
             $table->string('image',200);
             $table->date('birthday');
-            $table->integer('nation',3);
+            $table->integer('nation');
         });
     }
 

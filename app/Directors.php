@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Directors extends Model {
 
+    public $timestamps = false;
+
     protected $fillable = [
         'id', 'name', 'image', 'birthday', 'nation'
     ];
