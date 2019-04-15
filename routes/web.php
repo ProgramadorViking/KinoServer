@@ -33,6 +33,7 @@ $router->group(['middleware'=>'auth:api'],function($router){
     $router->post('list', 'UsersFilmsController@addStat');
     //Directores
     $router->get('directors', 'DirectorsController@all');
+    $router->get('directors/films/{id}', 'DirectorsController@withFilms');
     $router->get('directors/{id}', 'DirectorsController@get');
     //Listas
     $router->get('list', 'UsersFilmsController@all');
