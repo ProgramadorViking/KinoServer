@@ -25,6 +25,7 @@ $router->group(['middleware'=>'auth:api'],function($router){
     $router->get('user/{id}', 'UsersController@get');
     //Peliculas
     $router->get('films', 'FilmsController@all');
+    $router->get('films/last','FilmsController@last');
     $router->get('films/{id}', 'FilmsController@get');
     //Listas
     $router->get('list/user/{id}', 'UsersFilmsController@getUser');
@@ -35,6 +36,7 @@ $router->group(['middleware'=>'auth:api'],function($router){
     $router->get('directors/{id}', 'DirectorsController@get');
     //Listas
     $router->get('list', 'UsersFilmsController@all');
+    $router->get('list/views', 'UsersFilmsController@views');
     $router->get('list/film/{id}', 'UsersFilmsController@getFilm');
     //Acceso de editores
     $router->group(['middleware'=>'role:editor'],function($router){
@@ -56,4 +58,3 @@ $router->group(['middleware'=>'auth:api'],function($router){
 //$router->delete('films/{id}', 'FilmsController@remove');
 //$router->delete('user/{id}', 'UsersController@remove');
 //$router->delete('directors/{id}', 'DirectorsController@remove');
-$router->get('films/last','FilmsController@last');
